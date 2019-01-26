@@ -5,16 +5,14 @@ var volhistory = [];
 function preload() {
   // put preload code here
   mySong = loadSound("./assets/flowers.mp3");
-  myImage = loadImage("./assets/film.png");
 
 }
 
 function setup() {
   // put setup code here
   createCanvas(windowWidth, windowHeight);
-  background(0);
+  background(230);
 
-  image(myImage, 300, 100, 600, 650);
   mySong.play();
   analyzer = new p5.Amplitude();
 
@@ -27,65 +25,67 @@ function draw() {
   fill(255);
   textFont('Arial Black')
   textSize(40);
-  text('put your mouse on the machine', 300, 40);
-  if (mouseX > 600 || mouseX < 300) {
-    //stop
+  text('move your mouse', 300, 40);
+  if (mouseX < width / 2) {
     mySong.pause();
   } else {
-    //play
     if (mySong.isPlaying() == false) {
-      mySong.loop();
+      mySong.play();
+      // mySong.loop();
     }
   }
+
+  if (mySong.isPlaying() == false) {
+
+  }
+  mySong.play();
+
+
 
 
   var volume = analyzer.getLevel();
   volhistory.push(volume);
 
   noFill();
-  translate(0,height/2);
-  for(var i=0; i< volhistory.length;i++){
-  var a=random(-30,30);
-  stroke(lerpColor(color('#EF5350'), color('#FDD835'), y));
-  var y=map(volhistory[i],0,1,0,height/2);
-  var y=y*a;
+  translate(0, height / 2);
+  for (var i = 0; i < volhistory.length; i++) {
+    var a = random(-10, 10);
+    stroke(lerpColor(color('#EF5350'), color('#FDD835'), y));
+    var y = map(volhistory[i], 0, 1, 0, height / 2);
+    var y = y * a;
 
-}
-beginShape();
-curveVertex(800,0);
+  }
+  beginShape();
+  curveVertex(0, 0);
+  curveVertex(0, 0);
+  curveVertex(width / 4, y);
+  curveVertex(width / 2, 0);
+  curveVertex(width * 3 / 4, -y);
+  curveVertex(width, 0);
+  curveVertex(width, 0);
+  endShape();
 
-curveVertex(2000,y+100);
-curveVertex(width/2-15,0);
-curveVertex(800,-y);
+  beginShape();
+  curveVertex(0, 0);
+  curveVertex(0, 0);
+  curveVertex(width / 4, y * 2);
+  curveVertex(width / 2, 0);
+  curveVertex(width * 3 / 4, -y * 2);
+  curveVertex(width, 0);
+  curveVertex(width, 0);
+  endShape();
 
-endShape();
-beginShape();
-curveVertex(800,-30);
+  beginShape();
+  curveVertex(0, 0);
+  curveVertex(0, 0);
+  curveVertex(width / 4, y * 3);
+  curveVertex(width / 2, 0);
+  curveVertex(width * 3 / 4, -y * 3);
+  curveVertex(width, 0);
+  curveVertex(width, 0);
+  endShape();
 
-curveVertex(2000,y+100);
-curveVertex(width/2-15,-30);
-curveVertex(800,-y);
 
-endShape();
-
-
-beginShape();
-curveVertex(800,-60);
-
-curveVertex(2000,y+100);
-curveVertex(width/2-15,-60);
-curveVertex(800,-y);
-
-endShape();
-
-beginShape();
-curveVertex(800,-90);
-
-curveVertex(2000,y+100);
-curveVertex(width/2-15,-90);
-curveVertex(800,-y);
-
-endShape();
 
 
 
